@@ -1,6 +1,6 @@
 # REST API Testing - Postman
 
-This project contains API testing practice using Postman and DummyJSON APIs.
+This project contains API testing practice using Postman and DummyJSON and JSONPlaceholder APIs.
 
 ## APIs Tested
 
@@ -21,6 +21,15 @@ This project contains API testing practice using Postman and DummyJSON APIs.
 - Passed refresh token and expiry time in the request body.
 - Practiced token refresh workflow.
 
+### 4. DummyJSON Post APIs
+- Practiced REST API requests using DummyJSON.
+- Organized API requests in a Postman collection.
+
+### 5. JSONPlaceholder APIs
+- Practiced API requests using JSONPlaceholder.
+- Created a separate Postman collection.
+- Included status code validation scripts.
+
 ## Testing Skills
 - REST API Testing
 - GET and POST Methods
@@ -33,10 +42,14 @@ This project contains API testing practice using Postman and DummyJSON APIs.
 ## Tools & Technologies
 - Postman
 - DummyJSON API
+- JSONPlaceholder API
 - JSON
 
-## Project File
-[View Postman Collection](DummyJson-Auth-APIs.postman_collection.json)
+## Project Files
+
+- [DummyJSON Authentication APIs](DummyJson-Auth-APIs.postman_collection.json)
+- [DummyJSON Post APIs](DummyJson-Post-APIs.json)
+- [JSONPlaceholder APIs](JsonPlaceHolder.json)
 
 ## Author
 Mohd Asif
