@@ -1,0 +1,832 @@
+{
+  "info": {
+    "_postman_id": "4d46d6c9-8360-4c11-8ca8-51586845848e",
+    "name": "DummyJson-Post-APIs",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54134479",
+    "_collection_link": "https://go.postman.co/collection/54134479-4d46d6c9-8360-4c11-8ca8-51586845848e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET All Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "(\"Check Status Code\",()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present\", ()=>{\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be less 1000ms\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check Id is Present in Every Post\",()=>{\r",
+              "    JsonData.posts.forEach(post =>{\r",
+              "        pm.expect(post).to.have.property(\"id\");\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              "let jsonData = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Verify The Datatype\", () => {\r",
+              "    pm.expect(jsonData).to.be.an(\"object\");\r",
+              "    pm.expect(jsonData.posts).to.be.an(\"array\");\r",
+              "\r",
+              "    jsonData.posts.forEach(post => {\r",
+              "        pm.expect(post.id).to.be.a(\"number\");\r",
+              "        pm.expect(post.title).to.be.a(\"string\");\r",
+              "    });\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Single Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Check Status Code\",()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present\", ()=>{\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be less 2000ms\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check Id is Present in Post\",()=>{\r",
+              "   pm.expect(JsonData).to.have.property(\"id\");\r",
+              "});\r",
+              "\r",
+              "let jsonData = pm.response.json();\r",
+              "\r",
+              "pm.test(\"Verify The Datatype\", () => {\r",
+              "    pm.expect(jsonData).to.be.an(\"object\");\r",
+              "    pm.expect(jsonData.tags).to.be.an(\"array\");\r",
+              "    pm.expect(jsonData.id).to.be.a(\"number\");\r",
+              "    pm.expect(jsonData.title).to.be.a(\"string\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Search Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Check Status Code\",()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\", ()=>{\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be abobe 100\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.above(100);\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check Id is Present is Each Post\",()=>{\r",
+              "    JsonData.posts.forEach((post)=>{\r",
+              "        pm.expect(post.id).to.be.a(\"number\");\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check DataType of Each Post\", ()=>{\r",
+              "    pm.expect(JsonData).to.be.an(\"object\");\r",
+              "    pm.expect(JsonData.posts).to.be.an(\"array\");\r",
+              "\r",
+              "    JsonData.posts.forEach((post)=>{\r",
+              "        pm.expect(post.title).to.be.a(\"string\");\r",
+              "        pm.expect(post.id).to.be.a(\"number\");\r",
+              "        pm.expect(post.body).to.be.a(\"string\");\r",
+              "        pm.expect(post.tags).to.be.an(\"array\");\r",
+              "        pm.expect(post.reactions.likes).to.be.an(\"number\");\r",
+              "        pm.expect(post.views).to.be.a(\"number\");\r",
+              "    });\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts/search?q=love",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "love"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Limit and skip Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", ()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\", ()=>{\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be Below 1000ms\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Body Should Contain 10 Posts\", ()=>{\r",
+              "    pm.expect(pm.response.json().posts.length).to.be.eql(10);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "var posts = pm.response.json().posts;\r",
+              "pm.test(\"Every post contains title reactions and userId\", ()=>{\r",
+              "    pm.expect(posts.every(post => post.title&& post.reactions && post.userId)).to.be.true;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts?limit=10&skip=10&select=title,reactions,userId",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "skip",
+              "value": "10"
+            },
+            {
+              "key": "select",
+              "value": "title,reactions,userId"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "SortBy and Order",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", ()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\", ()=>{\r",
+              "    pm.response.to.have.header(\"Content-Type\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be Below 1500ms\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"All posts contain title\", () => {\r",
+              "    const posts = pm.response.json().posts;\r",
+              "    pm.expect(posts.every(post => post.title)).to.be.true;\r",
+              "});\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts?sortBy=title&order=asc",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts"
+          ],
+          "query": [
+            {
+              "key": "sortBy",
+              "value": "title"
+            },
+            {
+              "key": "order",
+              "value": "asc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET all Post Tags",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", ()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Content Correct\",()=>{\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time should be below 1500ms\",()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check DataType of Response Body\", ()=>{\r",
+              "    pm.expect(JsonData).to.be.an(\"array\");\r",
+              "   \r",
+              "    JsonData.forEach(tags => {\r",
+              "        pm.expect(tags).to.be.an(\"object\");\r",
+              "        pm.expect(tags.slug).to.be.a(\"string\");\r",
+              "        pm.expect(tags.url).to.be.a(\"string\");\r",
+              "    });\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts/tags",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "tags"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Post Tag list",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\",()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is greater than 500ms\",()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.above(500);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\", ()=>{\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+              "});\r",
+              "\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Tag list is not empty\", () => {\r",
+              "\r",
+              "    pm.expect(JsonData).to.be.an(\"array\").that.is.not.empty;\r",
+              "\r",
+              "    JsonData.forEach(tag => {\r",
+              "        pm.expect(tag).to.be.a(\"string\");\r",
+              "    });\r",
+              "\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts/tag-list",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "tag-list"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Post by a Tag",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", ()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\", ()=>{\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be Less 3000\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check Data Type of Response Body\", ()=>{\r",
+              "    pm.expect(JsonData).to.be.an(\"object\");\r",
+              "   JsonData.posts.forEach(post =>{\r",
+              "    pm.expect(post.id).to.be.a(\"number\");\r",
+              "    pm.expect(post.tags).to.be.an(\"array\");\r",
+              "    post.tags.forEach(tag=>{\r",
+              "        pm.expect(tag).to.be.a(\"string\");\r",
+              "    });\r",
+              "    pm.expect(post.title).to.be.a(\"string\");\r",
+              "    pm.expect(post.reactions.likes).to.be.a(\"number\");\r",
+              "    pm.expect(post.reactions.dislikes).to.be.a(\"number\");\r",
+              "    pm.expect(post.views).to.be.a(\"number\");\r",
+              "    pm.expect(post.userId).to.be.a(\"number\");\r",
+              "   });\r",
+              "});\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts/tag/life",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "tag",
+            "life"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET All Post by UserId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", ()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\", ()=>{\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be Less 3000\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check Data Type of Response Body\", ()=>{\r",
+              "    pm.expect(JsonData).to.be.an(\"object\");\r",
+              "   JsonData.posts.forEach(post =>{\r",
+              "    pm.expect(post.id).to.be.a(\"number\");\r",
+              "    pm.expect(post.tags).to.be.an(\"array\");\r",
+              "    post.tags.forEach(tag=>{\r",
+              "        pm.expect(tag).to.be.a(\"string\");\r",
+              "    });\r",
+              "    pm.expect(post.title).to.be.a(\"string\");\r",
+              "    pm.expect(post.reactions.likes).to.be.a(\"number\");\r",
+              "    pm.expect(post.reactions.dislikes).to.be.a(\"number\");\r",
+              "    pm.expect(post.views).to.be.a(\"number\");\r",
+              "    pm.expect(post.userId).to.be.a(\"number\");\r",
+              "   });\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"check if the UserId is 5\",()=>{\r",
+              "   JsonData.posts.forEach(post=>{\r",
+              "    pm.expect(post.userId).to.eql(5);\r",
+              "   });\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts/user/5",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "user",
+            "5"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Post Comments",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", ()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\", ()=>{\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be Less 3000\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check Data Type of Response Body\", ()=>{\r",
+              "   pm.expect(JsonData).to.be.an(\"object\");\r",
+              "   JsonData.comments.forEach(comment=>{\r",
+              "    pm.expect(comment.id).to.be.a(\"number\");\r",
+              "    pm.expect(comment.body).to.be.a(\"string\");\r",
+              "    pm.expect(comment.likes).to.be.a(\"number\");\r",
+              "    pm.expect(comment.user).to.be.an(\"object\");\r",
+              "    pm.expect(comment.user.id).to.be.a(\"number\");\r",
+              "    pm.expect(comment.user.username).to.be.a(\"string\");\r",
+              "   });\r",
+              "});\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts/1/comments",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1",
+            "comments"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add a New Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", ()=>{\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"header is present and Correct\",()=>{\r",
+              "    pm.expect(pm.response.headers.get(\"content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"response Time is less than 1000ms\",()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Check Data Type of Response Body\",()=>{\r",
+              "    pm.expect(JsonData).to.be.an(\"object\");\r",
+              "pm.expect( JsonData.title).to.not.be.null;\r",
+              "pm.expect( JsonData.userId).to.be.a(\"number\");\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.collectionVariables.set(\"id\",JsonData.id);"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\":\"This is very wonderful or futuristic\",\r\n    \"userId\":5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/posts/add",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "add"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update a Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", ()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\",()=>{\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be Above 100ms\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.above(100);\r",
+              "});\r",
+              "\r",
+              "var JsonData = pm.response.json();\r",
+              "pm.test(\"Response Body Should Contain UserId 5 and Updated Title\", () => {\r",
+              "    pm.expect(JsonData.userId).to.eql(5);\r",
+              "    pm.expect(JsonData.title).to.eql(\"I think i should shift to Germeny and USA within 2 Years\");\r",
+              "});\r",
+              "\r",
+              "\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"I think i should shift to Germeny and USA within 2 Years\",\r\n    \"userId\":5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dummyjson.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a Post",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", ()=>{\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Header is Present and Correct\",()=>{\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json; charset=utf-8\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response Time Should be Above 100ms\", ()=>{\r",
+              "    pm.expect(pm.response.responseTime).to.be.above(100);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://dummyjson.com/posts/1",
+          "protocol": "https",
+          "host": [
+            "dummyjson",
+            "com"
+          ],
+          "path": [
+            "posts",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "updatedPost",
+      "value": ""
+    },
+    {
+      "key": "Id",
+      "value": ""
+    },
+    {
+      "key": "id",
+      "value": ""
+    }
+  ]
+}
